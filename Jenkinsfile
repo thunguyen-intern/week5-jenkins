@@ -49,13 +49,18 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    sh "docker build -t ${DOCKER_IMAGE}"
+                    dockerImage = docker.build(${DOCKER_IMAGE} + ":v${BUILD_NUMBER}")
                     
                     // Log into Docker registry
-                    sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
-
+                    sh "docker login -u ${DOCKER_CREDENTIAL_USR} -p ${DOCKER_CREDENTIAL_PSSWD}"
                     // Push the Docker image
-                    sh "docker push ${DOCKER_IMAGE}"
+
+                    dockerImage.push()
+                    // sh "docker push ${DOCKER_IMAGE}"
+                    // dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/multistage/")
+                    // docker.withRegistry( vprofileRegistry, registryCredential ) {
+                    //     dockerImage.push("$BUILD_NUMBER")
+                    //     dockerImage.push('latest')
                 }
             }
         }
