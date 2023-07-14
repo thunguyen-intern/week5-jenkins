@@ -46,19 +46,19 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
-            steps {
-                script {
-                    // Build the Docker image
-                    sh "docker build -t ${DOCKER_IMAGE} ."
-                    // Log into Docker registry
-                    sh "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSSWD}"
-                    // Push the Docker image
-                    // dockerImage.push()
-                    sh "docker push ${DOCKER_IMAGE}"
-                }
-            }
-        }
+        // stage('Build and Push Docker Image') {
+        //     steps {
+        //         script {
+        //             // Build the Docker image
+        //             sh "docker build -t ${DOCKER_IMAGE} ."
+        //             // Log into Docker registry
+        //             sh "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSSWD}"
+        //             // Push the Docker image
+        //             // dockerImage.push()
+        //             sh "docker push ${DOCKER_IMAGE}"
+        //         }
+        //     }
+        // }
     }
 
     post {
