@@ -2,6 +2,7 @@ pipeline {
     // agent {
     //     label 'docker'
     // }
+    agent any
 
     environment {
         DOCKER_IMAGE = 'hikari141/medigpt'
