@@ -6,7 +6,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'hikari141/medigpt'
-        DOCKERFILE_PATH = './Dockerfile'
+        DOCKERFILE_PATH = 'Users/thuscomputer/Downloads/week5-jenkins/Dockerfile'
     }
 
     stages {
