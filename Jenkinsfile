@@ -7,6 +7,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'hikari141/medigpt'
         DOCKER_CREDENTIAL = credential('943612a8-9556-45ad-b4d0-99732a213218')
+        dockerImage = ''
     }
 
     stages {
@@ -45,16 +46,21 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
+        stage('Build Docker') {
             steps {
                 script {
                     // Build the Docker image
                     dockerImage = docker.build(${DOCKER_IMAGE} + ":v${BUILD_NUMBER}")
-                    
-                    // Log into Docker registry
-                    sh "docker login -u ${DOCKER_CREDENTIAL_USR} -p ${DOCKER_CREDENTIAL_PSSWD}"
-                    // Push the Docker image
+                }
+            }
+        }
 
+        stage('Build and Push Docker Image') {
+            steps {
+                // Log into Docker registry
+                    sh "docker login -u ${DOCKER_CREDENTIAL_USR} -p ${DOCKER_CREDENTIAL_PSSWD}"
+                script {
+                    // Push the Docker image
                     dockerImage.push()
                     // sh "docker push ${DOCKER_IMAGE}"
                     // dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/multistage/")
