@@ -6,7 +6,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'hikari141/medigpt'
-        DOCKER_CREDENTIAL = credential('943612a8-9556-45ad-b4d0-99732a213218')
+        DOCKERHUB_CREDENTIALS = credential('dockerhub')
         dockerImage = ''
     }
 
@@ -46,27 +46,16 @@ pipeline {
             }
         }
 
-        stage('Build Docker') {
+        stage('Build and Push Docker Image') {
             steps {
                 script {
                     // Build the Docker image
-                    dockerImage = docker.build(${DOCKER_IMAGE} + ":v${BUILD_NUMBER}")
-                }
-            }
-        }
-
-        stage('Build and Push Docker Image') {
-            steps {
-                // Log into Docker registry
-                    sh "docker login -u ${DOCKER_CREDENTIAL_USR} -p ${DOCKER_CREDENTIAL_PSSWD}"
-                script {
+                    sh "docker build -t ${DOCKER_IMAGE} ."
+                    // Log into Docker registry
+                    sh "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSSWD}"
                     // Push the Docker image
-                    dockerImage.push()
-                    // sh "docker push ${DOCKER_IMAGE}"
-                    // dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/multistage/")
-                    // docker.withRegistry( vprofileRegistry, registryCredential ) {
-                    //     dockerImage.push("$BUILD_NUMBER")
-                    //     dockerImage.push('latest')
+                    // dockerImage.push()
+                    sh "docker push ${DOCKER_IMAGE}"
                 }
             }
         }
