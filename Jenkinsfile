@@ -52,7 +52,7 @@ pipeline {
                     // Build the Docker image
                     sh "docker build -t ${DOCKER_IMAGE} ."
                     // Log into Docker registry
-                    sh "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSSWD}"
+                    sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
                     // Push the Docker image
                     // dockerImage.push()
                     sh "docker push ${DOCKER_IMAGE}"
