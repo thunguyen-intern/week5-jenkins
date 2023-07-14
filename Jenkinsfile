@@ -5,7 +5,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'hikari141/medigpt'
+        DOCKER_IMAGE = 'hikari141/docker101tutorial'
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         dockerImage = ''
     }
