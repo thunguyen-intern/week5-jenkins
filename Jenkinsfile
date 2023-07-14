@@ -6,7 +6,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'hikari141/medigpt'
-        DOCKERHUB_CREDENTIALS = credential('dockerhub')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         dockerImage = ''
     }
 
@@ -20,7 +20,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                checkout scm
+                // checkout scm
                 // Check out the code that contains the Dockerfile
                 // Skip this step
                 // Remind me later
