@@ -2,7 +2,7 @@ pipeline {
     agent {
         label 'docker'
     }
-    
+
     environment {
         DOCKER_IMAGE = 'hikari141/medigpt'
         DOCKERFILE_PATH = './Dockerfile'
@@ -47,8 +47,8 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    // sh "docker build -t ${DOCKER_IMAGE} -f ${DOCKERFILE_PATH} ."
-                    docker.build(${DOCKER_IMAGE})
+                    sh "docker build -t ${DOCKER_IMAGE} -f ${DOCKERFILE_PATH} ."
+                    // docker.build(${DOCKER_IMAGE})
                     // Log into Docker registry
                     withCredentials([usernamePassword(
                         credentialsId: '943612a8-9556-45ad-b4d0-99732a213218',
