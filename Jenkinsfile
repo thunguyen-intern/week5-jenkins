@@ -6,7 +6,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'hikari141/medigpt'
-        DOCKER_CREDENTIAL = credential('DockerAccessToken')
+        DOCKER_CREDENTIAL = credential('943612a8-9556-45ad-b4d0-99732a213218')
     }
 
     stages {
